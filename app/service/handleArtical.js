@@ -6,14 +6,23 @@ const dateFormat = require('dateformat');
 class HandleArticalService extends Service {
   async articalHandle(obj) {
     const artical = obj.fields.artical;
+    const classify_id = obj.fields.classify_id;
+    const name = obj.fields.name;
+    console.log('---', classify_id);
     const id = dateFormat(new Date(), "yyyymmddHHMMss");
     let time = new Date().toLocaleDateString().replace(new RegExp("/", "g"), "-");
-    let essay = {
+    const essay = {
       id,
       artical,
       time
     };
-    const result = await this.app.mysql.insert('essay', essay);
+    const classify = {
+      id: classify_id,
+      name,
+      essay_id: id
+    }
+    const result1 = await this.app.mysql.insert('essay', essay);
+    const result2 = await this.app.mysql.insert('classify', classify);
   }
 }
 
