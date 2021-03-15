@@ -7,6 +7,13 @@ class GetArticalService extends Service {
     const essay = await this.app.mysql.get("essay", { id });
     return essay;
   }
+
+  async getEssaysByClassifyId(id) {
+    const essays = await this.app.mysql.select("essay", {      
+      where: { classify_id: id }
+    });
+    return essays;
+  }
 }
 
 module.exports = GetArticalService;

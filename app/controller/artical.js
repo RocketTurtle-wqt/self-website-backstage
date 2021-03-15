@@ -45,6 +45,16 @@ class ArticalController extends Controller {
     console.log(essay);
     ctx.body = essay;
   }
+
+  async getArticals() {
+    console.log("按类取文章");
+    const { ctx } = this;
+    const id = ctx.query.classify_id;
+    console.log(`id:${id}`)
+    const essays = await ctx.service.getArtical.getEssaysByClassifyId(id);
+    console.log(essays);
+    ctx.body = essays;
+  }
 }
 
 module.exports = ArticalController;
