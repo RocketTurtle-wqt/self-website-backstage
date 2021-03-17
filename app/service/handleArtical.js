@@ -18,7 +18,8 @@ class HandleArticalService extends Service {
       title,
       classify_id
     };
-    const result1 = await this.app.mysql.insert('essay', essay);
+    const result = await this.app.mysql.insert('essay', essay);
+    if (result) return true;
   }
 }
 

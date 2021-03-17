@@ -17,6 +17,7 @@ class ClassifyController extends Controller {
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();
+    const rel = false;
     await new Promise((resolve, reject) => {
       form.parse(req, (err, fields, files) => {
         resolve({ fields, files });
@@ -24,8 +25,17 @@ class ClassifyController extends Controller {
     }).then(obj => {
       console.log(obj);
       console.log("微任务");
-      ctx.service.classify.setClassify(obj);
+      (async function handle() {
+        rel = await ctx.service.classify.setClassify(obj);
+      })();
     });
+    if (rel) {
+      ctx.status = 200;
+    } else {
+      console.log('失败');
+      ctx.status = 409;
+      ctx.body = '分类已存在';
+    }
   }
 }
 

@@ -17,6 +17,9 @@ class GetClassifyService extends Service {
         id,
         name: obj.fields.name
       });
+      return true;
+    } else {
+      return false;
     }
   }
 }

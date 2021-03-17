@@ -32,8 +32,14 @@ class ArticalController extends Controller {
     }).then(obj => {
       console.log(obj);
       console.log("微任务");
-      ctx.service.handleArtical.articalHandle(obj);
-      ctx.body = "操作完成";
+      const rel = ctx.service.handleArtical.articalHandle(obj);
+      if (rel) {
+        ctx.status = 200;
+        ctx.body = "操作完成";
+      } else {
+        ctx.status = 500;
+        ctx.body = "服务器内部错误";
+      }
     });
   }
 
