@@ -21,6 +21,28 @@ class HandleArticalService extends Service {
     const result = await this.app.mysql.insert('essay', essay);
     if (result) return true;
   }
+
+  async deleteArtical(id) {
+    const result = await this.app.mysql.delete('essay', { id });
+    if (result) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
+  async getEssay(id) {
+    const essay = await this.app.mysql.get("essay", { id });
+    return essay;
+  }
+
+  async getEssaysByClassifyId(id) {
+    const essays = await this.app.mysql.select("essay", {      
+      where: { classify_id: id }
+    });
+    return essays;
+  }
 }
 
 module.exports = HandleArticalService;

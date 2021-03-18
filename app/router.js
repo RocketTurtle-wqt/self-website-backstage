@@ -13,4 +13,5 @@ module.exports = app => {
   router.post('/picture', controller.artical.handlePicture);
   router.post('/artical', controller.artical.handleArtical);
   router.post('/setClassify', controller.classify.setClassify);
+  router.post('/deleteArtical', controller.artical.deleteArtical);
 };

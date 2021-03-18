@@ -47,7 +47,7 @@ class ArticalController extends Controller {
     console.log("进入");
     const { ctx } = this;
     const id = ctx.query.id;
-    const essay = await ctx.service.getArtical.getEssay(id);
+    const essay = await ctx.service.handleArtical.getEssay(id);
     console.log(essay);
     ctx.body = essay;
   }
@@ -56,10 +56,17 @@ class ArticalController extends Controller {
     console.log("按类取文章");
     const { ctx } = this;
     const id = ctx.query.classify_id;
-    console.log(`id:${id}`)
-    const essays = await ctx.service.getArtical.getEssaysByClassifyId(id);
+    console.log(`id:${id}`);
+    const essays = await ctx.service.handleArtical.getEssaysByClassifyId(id);
     console.log(essays);
     ctx.body = essays;
+  }
+
+  async deleteArtical() {
+    const { ctx } = this;
+    const result = await ctx.service.handleArtical.deleteArtical(ctx.request.body.id);
+    ctx.status = 200;
+    ctx.body = result;
   }
 }
 
