@@ -5,7 +5,6 @@ const formidable = require('formidable');
 
 class ArticalController extends Controller {
   async handlePicture() {
-    console.log("进入");
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();
@@ -14,14 +13,11 @@ class ArticalController extends Controller {
         resolve({ fields, files });
       });
     }).then(obj => {
-      console.log(obj);
-      console.log("微任务");
       ctx.service.handlePicture.articalPictureHandle(obj);
     });
   }
 
   async handleArtical() {
-    console.log("进入");
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();
@@ -30,8 +26,6 @@ class ArticalController extends Controller {
         resolve({ fields, files });
       });
     }).then(obj => {
-      console.log(obj);
-      console.log("微任务");
       const rel = ctx.service.handleArtical.articalHandle(obj);
       if (rel) {
         ctx.status = 200;
@@ -44,21 +38,16 @@ class ArticalController extends Controller {
   }
 
   async getArtical() {
-    console.log("进入");
     const { ctx } = this;
     const id = ctx.query.id;
     const essay = await ctx.service.handleArtical.getEssay(id);
-    console.log(essay);
     ctx.body = essay;
   }
 
   async getArticals() {
-    console.log("按类取文章");
     const { ctx } = this;
     const id = ctx.query.classify_id;
-    console.log(`id:${id}`);
     const essays = await ctx.service.handleArtical.getEssaysByClassifyId(id);
-    console.log(essays);
     ctx.body = essays;
   }
 

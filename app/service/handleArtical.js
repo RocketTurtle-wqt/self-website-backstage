@@ -8,7 +8,6 @@ class HandleArticalService extends Service {
     const artical = obj.fields.artical;
     const classify_id = obj.fields.classify_id;
     const title = obj.fields.title;
-    console.log('---', classify_id);
     const id = dateFormat(new Date(), "yyyymmddHHMMss");
     let time = new Date().toLocaleDateString().replace(new RegExp("/", "g"), "-");
     const essay = {
