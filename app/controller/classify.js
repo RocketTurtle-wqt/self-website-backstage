@@ -23,7 +23,7 @@ class ClassifyController extends Controller {
     });
     if (rel) {
       ctx.status = 200;
-      ctx.body = '创建分类成功';
+      ctx.body = rel;
     } else {
       ctx.status = 409;
       ctx.body = '分类已存在';

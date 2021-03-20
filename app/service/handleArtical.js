@@ -1,17 +1,21 @@
 'use strict';
 
 const Service = require('egg').Service;
-const dateFormat = require('dateformat'); 
+const dateFormat = require('dateformat');
+var sd = require('silly-datetime');
 
 class HandleArticalService extends Service {
   async articalHandle(obj) {
+    const markdown = obj.fields.markdown;
     const artical = obj.fields.artical;
     const classify_id = obj.fields.classify_id;
     const title = obj.fields.title;
     const id = dateFormat(new Date(), "yyyymmddHHMMss");
-    let time = new Date().toLocaleDateString().replace(new RegExp("/", "g"), "-");
+    let time = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
+    console.log(time);
     const essay = {
       id,
+      markdown,
       artical,
       time,
       title,
@@ -40,7 +44,29 @@ class HandleArticalService extends Service {
     const essays = await this.app.mysql.select("essay", {      
       where: { classify_id: id }
     });
+    console.log(essays);
     return essays;
+  }
+
+  async updateEssay(obj) {
+    const markdown = obj.fields.markdown;
+    const artical = obj.fields.artical;
+    const classify_id = obj.fields.classify_id;
+    const title = obj.fields.title;
+    const id = dateFormat(new Date(), "yyyymmddHHMMss");
+    let time = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
+    console.log(time);
+    const essay = {
+      id,
+      markdown,
+      artical,
+      time,
+      title,
+      classify_id
+    };
+    const result = await this.app.mysql.update('essay', essay); 
+    const updateSuccess = result.affectedRows === 1;
+    return updateSuccess;
   }
 }
 

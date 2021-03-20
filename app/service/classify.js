@@ -13,11 +13,12 @@ class GetClassifyService extends Service {
     const rel = await this.app.mysql.get('classify', { name: obj.fields.name });
     if (!rel) {
       const id = dateFormat(new Date(), "yyyymmddHHMMss");
-      await this.app.mysql.insert('classify', {
+      const classify = {
         id,
         name: obj.fields.name
-      });
-      return true;
+      };
+      await this.app.mysql.insert('classify', classify);
+      return classify;
     } else {
       return false;
     }

@@ -33,6 +33,7 @@ module.exports = appInfo => {
       password: 'Wqt197781806',
       // 数据库名
       database: 'self-website',
+      timezone: '08:00'
     },
     // 是否加载到 app 上，默认开启
     app: true,

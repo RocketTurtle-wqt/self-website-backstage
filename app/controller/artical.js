@@ -37,6 +37,26 @@ class ArticalController extends Controller {
     });
   }
 
+  async updateArtical() {
+    const { ctx } = this;
+    const { req } = ctx;
+    const form = new formidable.IncomingForm();
+    await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        resolve({ fields, files });
+      });
+    }).then(obj => {
+      const rel = ctx.service.handleArtical.updateEssay(obj);
+      if (rel) {
+        ctx.status = 200;
+        ctx.body = "文章更新成功";
+      } else {
+        ctx.status = 500;
+        ctx.body = "文章更新失败";
+      }
+    });
+  }
+
   async getArtical() {
     const { ctx } = this;
     const id = ctx.query.id;

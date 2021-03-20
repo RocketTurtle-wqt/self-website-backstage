@@ -12,6 +12,7 @@ module.exports = app => {
   router.get('/getartical', controller.artical.getArtical);
   router.post('/picture', controller.artical.handlePicture);
   router.post('/artical', controller.artical.handleArtical);
+  router.post('/updateartical', controller.artical.updateArtical);
   router.post('/setClassify', controller.classify.setClassify);
   router.post('/deleteArtical', controller.artical.deleteArtical);
 };
