@@ -29,7 +29,7 @@ class ArticalController extends Controller {
       const rel = ctx.service.handleArtical.articalHandle(obj);
       if (rel) {
         ctx.status = 200;
-        ctx.body = "操作完成";
+        ctx.body = "文章发布成功";
       } else {
         ctx.status = 500;
         ctx.body = "服务器内部错误";
@@ -74,6 +74,13 @@ class ArticalController extends Controller {
   async deleteArtical() {
     const { ctx } = this;
     const result = await ctx.service.handleArtical.deleteArtical(ctx.request.body.id);
+    ctx.status = 200;
+    ctx.body = result;
+  }
+
+  async aboutme() {
+    const { ctx } = this;
+    const result = await ctx.service.handleArtical.aboutme();
     ctx.status = 200;
     ctx.body = result;
   }

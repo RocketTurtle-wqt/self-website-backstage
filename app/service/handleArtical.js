@@ -49,12 +49,12 @@ class HandleArticalService extends Service {
   }
 
   async updateEssay(obj) {
+    const id = obj.fields.id;
     const markdown = obj.fields.markdown;
     const artical = obj.fields.artical;
-    const classify_id = obj.fields.classify_id;
-    const title = obj.fields.title;
-    const id = dateFormat(new Date(), "yyyymmddHHMMss");
     let time = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
+    const title = obj.fields.title;
+    const classify_id = obj.fields.classify_id;
     console.log(time);
     const essay = {
       id,
@@ -64,9 +64,15 @@ class HandleArticalService extends Service {
       title,
       classify_id
     };
+    console.log('---', artical);
     const result = await this.app.mysql.update('essay', essay); 
     const updateSuccess = result.affectedRows === 1;
     return updateSuccess;
+  }
+
+  async aboutme() {
+    const essay = await this.app.mysql.get("essay", { title:'关于我' });
+    return essay;
   }
 }
 
