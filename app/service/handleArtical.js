@@ -5,14 +5,13 @@ const dateFormat = require('dateformat');
 var sd = require('silly-datetime');
 
 class HandleArticalService extends Service {
-  async articalHandle(obj) {
+  async addArtical(obj) {
+    const id = dateFormat(new Date(), "yyyymmddHHMMss");
     const markdown = obj.fields.markdown;
     const artical = obj.fields.artical;
-    const classify_id = obj.fields.classify_id;
+    const time = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
     const title = obj.fields.title;
-    const id = dateFormat(new Date(), "yyyymmddHHMMss");
-    let time = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
-    console.log(time);
+    const classify_id = obj.fields.classify_id;
     const essay = {
       id,
       markdown,
@@ -22,40 +21,32 @@ class HandleArticalService extends Service {
       classify_id
     };
     const result = await this.app.mysql.insert('essay', essay);
-    if (result) return true;
+    return result;
   }
 
   async deleteArtical(id) {
-    const result = await this.app.mysql.delete('essay', { id });
-    if (result) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    await this.app.mysql.delete('essay', { id });
   }
   
-  async getEssay(id) {
+  async getArtical(id) {
     const essay = await this.app.mysql.get("essay", { id });
     return essay;
   }
 
-  async getEssaysByClassifyId(id) {
+  async getArticalsByClassifyId(id) {
     const essays = await this.app.mysql.select("essay", {      
       where: { classify_id: id }
     });
-    console.log(essays);
     return essays;
   }
 
-  async updateEssay(obj) {
+  async updateArtical(obj) {
     const id = obj.fields.id;
     const markdown = obj.fields.markdown;
     const artical = obj.fields.artical;
     let time = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
     const title = obj.fields.title;
     const classify_id = obj.fields.classify_id;
-    console.log(time);
     const essay = {
       id,
       markdown,
@@ -64,13 +55,12 @@ class HandleArticalService extends Service {
       title,
       classify_id
     };
-    console.log('---', artical);
     const result = await this.app.mysql.update('essay', essay); 
     const updateSuccess = result.affectedRows === 1;
     return updateSuccess;
   }
 
-  async aboutme() {
+  async getArticalAboutMe() {
     const essay = await this.app.mysql.get("essay", { title:'关于我' });
     return essay;
   }

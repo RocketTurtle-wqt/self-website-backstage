@@ -19,7 +19,7 @@ class ClassifyController extends Controller {
         resolve({ fields, files });
       });
     }).then(obj => {
-      return ctx.service.classify.setClassify(obj);
+      return ctx.service.classify.addClassify(obj);
     });
     if (rel) {
       ctx.status = 200;

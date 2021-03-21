@@ -7,14 +7,13 @@ const fs = require('fs');
 
 class HandlePictureService extends Service {
   async articalPictureHandle(obj) {
-    const { ctx } = this;
     const image = obj.files.image;
     const time = dateFormat(new Date(), "yyyymmddHHMMss");
     const extName = path.extname(image.name);    
     const newName = `${time}_${extName}`;
     const newPath = `/Users/wangqintao/Desktop/self-website-backstage/app/public/images/${newName}`;
     fs.renameSync(image.path, newPath); 
-    ctx.body = `/images/${newName}`;
+    return `/images/${newName}`;
   }
 }
 

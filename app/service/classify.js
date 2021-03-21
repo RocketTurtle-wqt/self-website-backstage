@@ -9,7 +9,7 @@ class GetClassifyService extends Service {
     return classifies;
   }
 
-  async setClassify(obj) {
+  async addClassify(obj) {
     const rel = await this.app.mysql.get('classify', { name: obj.fields.name });
     if (!rel) {
       const id = dateFormat(new Date(), "yyyymmddHHMMss");
