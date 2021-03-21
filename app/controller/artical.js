@@ -4,7 +4,7 @@ const Controller = require('egg').Controller;
 const formidable = require('formidable');
 
 class ArticalController extends Controller {
-  async handlePicture() {
+  async publishPicture() {
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();
@@ -17,7 +17,7 @@ class ArticalController extends Controller {
     });
   }
 
-  async handleArtical() {
+  async publishArtical() {
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();
@@ -37,7 +37,7 @@ class ArticalController extends Controller {
     });
   }
 
-  async updateArtical() {
+  async updateArticalById() {
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();
@@ -57,28 +57,28 @@ class ArticalController extends Controller {
     });
   }
 
-  async getArtical() {
+  async getArticalById() {
     const { ctx } = this;
     const id = ctx.query.id;
     const essay = await ctx.service.handleArtical.getEssay(id);
     ctx.body = essay;
   }
 
-  async getArticals() {
+  async getArticalsByClassifyId() {
     const { ctx } = this;
     const id = ctx.query.classify_id;
     const essays = await ctx.service.handleArtical.getEssaysByClassifyId(id);
     ctx.body = essays;
   }
 
-  async deleteArtical() {
+  async deleteArticalById() {
     const { ctx } = this;
     const result = await ctx.service.handleArtical.deleteArtical(ctx.request.body.id);
     ctx.status = 200;
     ctx.body = result;
   }
 
-  async aboutme() {
+  async getArticalAboutMe() {
     const { ctx } = this;
     const result = await ctx.service.handleArtical.aboutme();
     ctx.status = 200;

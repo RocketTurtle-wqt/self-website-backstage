@@ -4,13 +4,13 @@ const Controller = require('egg').Controller;
 const formidable = require('formidable');
 
 class ClassifyController extends Controller {
-  async getClassify() {
+  async getClassifies() {
     const { ctx } = this;
     const classifies = await ctx.service.classify.getClassifies();
     ctx.body = classifies;
   }
 
-  async setClassify() {
+  async publishClassify() {
     const { ctx } = this;
     const { req } = ctx;
     const form = new formidable.IncomingForm();

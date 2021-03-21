@@ -3,7 +3,7 @@
 const Controller = require('egg').Controller;
 
 class FrequecyController extends Controller {
-  async articalfrequency() {
+  async getArticalfrequency() {
     const { ctx } = this;
     const rel = await ctx.service.frequency.articalfrequency();
     ctx.status = 200;
