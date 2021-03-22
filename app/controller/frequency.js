@@ -7,7 +7,7 @@ class FrequecyController extends Controller {
     const { ctx } = this;
     const rel = await ctx.service.frequency.articalfrequency();
     ctx.status = 200;
-    ctx.body = rel.slice(Math.max(0, rel.length - 5));
+    ctx.body = rel;
   }
 }
 
