@@ -65,11 +65,24 @@ class ArticalController extends Controller {
     ctx.body = essay;
   }
 
-  async getArticalsByClassifyId() {
+  async getArticalsByClassifyIdAndPage() {
+    const { ctx } = this;
+    const id = ctx.query.classify_id;
+    const page = ctx.query.page;
+    const essays = await ctx.service.handleArtical.getArticalsByClassifyId(id);
+    const res = essays.slice((page - 1) * 5, Math.min(page * 5, essays.length));
+    ctx.body = res;
+  }
+
+  async getArticalNumberByClassifyId() {
     const { ctx } = this;
     const id = ctx.query.classify_id;
     const essays = await ctx.service.handleArtical.getArticalsByClassifyId(id);
-    ctx.body = essays;
+    const res = {
+      num: essays.length,
+      essays: essays.slice(0, Math.min(5, essays.length))
+    };
+    ctx.body = res;
   }
 
   async deleteArticalById() {

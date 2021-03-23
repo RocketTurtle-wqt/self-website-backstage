@@ -25,7 +25,8 @@ module.exports = app => {
     文章
   */
   router.get('/artical/getArticalAboutMe', controller.artical.getArticalAboutMe);
-  router.get('/artical/getArticalsByClassifyId', controller.artical.getArticalsByClassifyId);
+  router.get('/artical/getArticalsByClassifyIdAndPage', controller.artical.getArticalsByClassifyIdAndPage);
+  router.get('/artical/getArticalNumberByClassifyId', controller.artical.getArticalNumberByClassifyId);
   router.get('/artical/getArticalById', controller.artical.getArticalById);
   router.post('/artical/publishPicture', controller.artical.publishPicture);
   router.post('/artical/publishArtical', controller.artical.publishArtical);
