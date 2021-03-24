@@ -37,6 +37,7 @@ module.exports = app => {
   */
   router.get('/classify/getClassifies', controller.classify.getClassifies);
   router.post('/classify/publishClassify', controller.classify.publishClassify);
+  router.post('/classify/deleteClassify', controller.classify.deleteClassify);
   /*
     频率
   */

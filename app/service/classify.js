@@ -23,6 +23,11 @@ class GetClassifyService extends Service {
       return false;
     }
   }
+
+  async deleteClassify(id) {
+    await this.app.mysql.delete('essay', { classify_id: id });
+    await this.app.mysql.delete('classify', { id });
+  }
 }
 
 module.exports = GetClassifyService;

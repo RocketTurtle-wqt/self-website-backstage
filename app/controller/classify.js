@@ -29,6 +29,14 @@ class ClassifyController extends Controller {
       ctx.body = '分类已存在';
     }
   }
+
+  async deleteClassify() {
+    const { ctx } = this;
+    const classify_id = ctx.request.body.classify_id;
+    await ctx.service.classify.deleteClassify(classify_id);
+    ctx.status = 200;
+    ctx.body = '分类删除成功';
+  }
 }
 
 module.exports = ClassifyController;
