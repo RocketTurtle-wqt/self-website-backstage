@@ -40,6 +40,16 @@ class FrequencyService extends Service {
     return time_arr;
   }
 
+  async classifyArticalNumber() {
+    const classify = await this.ctx.service.classify.getClassifies();
+    console.log('classify---', classify);
+    for (let i = 0; i < classify.length; i++){
+      const rel = await this.app.mysql.query(`select count(*) as num from essay where classify_id=${classify[i].id}`);
+      classify[i].num = rel[0].num;
+    }
+    return classify;
+  }
+
   statistics(essays, datetime) {
     let ans = 0;
     for (let essay of essays) {

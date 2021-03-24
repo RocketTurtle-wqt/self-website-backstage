@@ -41,6 +41,7 @@ module.exports = app => {
   /*
     频率
   */
-  router.get('/frequency/getArticalfrequency', controller.frequency.getArticalfrequency);
+  // router.get('/frequency/getArticalfrequency', controller.frequency.getArticalfrequency);
+  router.get('/echarts/getAlldata', controller.frequency.getAllData);
   // router.post('/artical/');
 };

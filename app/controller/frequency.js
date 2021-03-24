@@ -9,6 +9,18 @@ class FrequecyController extends Controller {
     ctx.status = 200;
     ctx.body = rel;
   }
+
+  async getAllData() {
+    const { ctx } = this;
+    const articalfrequency = await ctx.service.frequency.articalfrequency();
+    const classify = await this.ctx.service.frequency.classifyArticalNumber();
+    const rel = {
+      articalfrequency,
+      classify
+    }
+    ctx.status = 200;
+    ctx.body = rel;
+  }
 }
 
 module.exports = FrequecyController;
