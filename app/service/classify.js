@@ -40,12 +40,17 @@ class GetClassifyService extends Service {
   }
 
   async deleteClassify(id) {
+    const { ctx } = this;
     await this.app.mysql.delete('essay', { classify_id: id });
     await this.app.mysql.delete('classify', { id });
     /*
     当删除分类时，重置分类缓存
     */
     GetClassifyService.resources["classifies"] = undefined;
+    /*
+    同时，去清除对应的handleArtical模块下对应想要删除的分类的缓存
+    */
+    ctx.service.handleArtical.resetResources(`getArticalsByClassifyId${classify_id}`);
   }
 }
 

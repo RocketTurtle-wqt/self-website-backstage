@@ -5,7 +5,7 @@ const dateFormat = require('dateformat');
 var sd = require('silly-datetime');
 
 class HandleArticalService extends Service {
-  
+
   static resources = {
     cache: {}
   };
@@ -29,7 +29,7 @@ class HandleArticalService extends Service {
     /*
     当按分类存取文章时，重置其对应分类的缓存
     */
-    HandleArticalService.resources[`getArticalsByClassifyId${classify_id}`]=undefined;
+    this.resetResources(`getArticalsByClassifyId${classify_id}`) = undefined;
     return result;
   }
 
@@ -39,7 +39,7 @@ class HandleArticalService extends Service {
      */
     const essay = await this.app.mysql.get("essay", { id });
     await this.app.mysql.delete('essay', { id });
-    HandleArticalService.resources[`getArticalsByClassifyId${essay.classify_id}`]=undefined;
+    this.resetResources(`getArticalsByClassifyId${essay.classify_id}`) = undefined;
   }
   
   async getArtical(id) {
@@ -80,13 +80,17 @@ class HandleArticalService extends Service {
     /*
     当更新分类时，重置其对应分类的缓存
     */
-    HandleArticalService.resources[`getArticalsByClassifyId${classify_id}`] = undefined;
+    this.resetResources(`getArticalsByClassifyId${classify_id}`) = undefined;
     return updateSuccess;
   }
 
   async getArticalAboutMe() {
     const essay = await this.app.mysql.get("essay", { title:'关于我' });
     return essay;
+  }
+
+  resetResources(cacheStr) {
+    HandleArticalService.resources[cacheStr] = undefined;
   }
 }
 
