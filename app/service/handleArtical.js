@@ -80,7 +80,7 @@ class HandleArticalService extends Service {
     /*
     当更新分类时，重置其对应分类的缓存
     */
-    this.resetResources(`getArticalsByClassifyId${classify_id}`) = undefined;
+    this.resetResources(`getArticalsByClassifyId${classify_id}`);
     return updateSuccess;
   }
 

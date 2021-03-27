@@ -50,7 +50,7 @@ class GetClassifyService extends Service {
     /*
     同时，去清除对应的handleArtical模块下对应想要删除的分类的缓存
     */
-    ctx.service.handleArtical.resetResources(`getArticalsByClassifyId${classify_id}`);
+    ctx.service.handleArtical.resetResources(`getArticalsByClassifyId${id}`);
   }
 }
 
