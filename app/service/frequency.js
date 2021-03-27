@@ -4,6 +4,7 @@ const Service = require('egg').Service;
 var sd = require('silly-datetime');
 
 class FrequencyService extends Service {
+
   async articalfrequency() {
     const essays = await this.app.mysql.select("essay", {});
     const time = sd.format(new Date(), 'YYYY-MM-DD');

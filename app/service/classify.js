@@ -4,13 +4,28 @@ const Service = require('egg').Service;
 const dateFormat = require('dateformat'); 
 
 class GetClassifyService extends Service {
+
+  static resources = {
+    cache: {}
+  };
+
   async getClassifies() {
+    /*
+    考虑eggjs搭建的服务器端的缓存优化
+    不让处理请求逻辑一直去操作数据库
+    */
+    if (GetClassifyService.resources["classifies"]) return GetClassifyService.resources["classifies"];
     const classifies = await this.app.mysql.select("classify");
+    GetClassifyService.resources["classifies"] = classifies;
     return classifies;
   }
 
   async addClassify(obj) {
     const rel = await this.app.mysql.get('classify', { name: obj.fields.name });
+    /*
+     当增加分类时，重置分类缓存
+     */
+    GetClassifyService.resources["classifies"] = undefined;
     if (!rel) {
       const id = dateFormat(new Date(), "yyyymmddHHMMss");
       const classify = {
@@ -27,6 +42,10 @@ class GetClassifyService extends Service {
   async deleteClassify(id) {
     await this.app.mysql.delete('essay', { classify_id: id });
     await this.app.mysql.delete('classify', { id });
+    /*
+    当删除分类时，重置分类缓存
+    */
+    GetClassifyService.resources["classifies"] = undefined;
   }
 }
 

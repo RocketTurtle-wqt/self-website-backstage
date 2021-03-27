@@ -5,6 +5,7 @@ const dateFormat = require('dateformat');
 var sd = require('silly-datetime');
 
 class HandleArticalService extends Service {
+  
   static resources = {
     cache: {}
   };
