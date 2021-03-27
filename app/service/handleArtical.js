@@ -5,6 +5,10 @@ const dateFormat = require('dateformat');
 var sd = require('silly-datetime');
 
 class HandleArticalService extends Service {
+  static resources = {
+    cache: {}
+  };
+
   async addArtical(obj) {
     const id = dateFormat(new Date(), "yyyymmddHHMMss");
     const markdown = obj.fields.markdown;
@@ -21,11 +25,20 @@ class HandleArticalService extends Service {
       classify_id
     };
     const result = await this.app.mysql.insert('essay', essay);
+    /*
+    当按分类存取文章时，重置其对应分类的缓存
+    */
+    HandleArticalService.resources[`getArticalsByClassifyId${classify_id}`]=undefined;
     return result;
   }
 
   async deleteArtical(id) {
+    /*
+    当删除文章时，重置其对应分类的缓存
+     */
+    const essay = await this.app.mysql.get("essay", { id });
     await this.app.mysql.delete('essay', { id });
+    HandleArticalService.resources[`getArticalsByClassifyId${essay.classify_id}`]=undefined;
   }
   
   async getArtical(id) {
@@ -34,9 +47,15 @@ class HandleArticalService extends Service {
   }
 
   async getArticalsByClassifyId(id) {
+    /*
+    考虑eggjs搭建的服务器端的缓存优化
+    不让处理请求逻辑一直去操作数据库
+    */
+    if (HandleArticalService.resources[`getArticalsByClassifyId${id}`]) return HandleArticalService.resources[`getArticalsByClassifyId${id}`];
     const essays = await this.app.mysql.select("essay", {      
       where: { classify_id: id }
     });
+    HandleArticalService.resources[`getArticalsByClassifyId${id}`] = essays;
     return essays;
   }
 
@@ -57,6 +76,10 @@ class HandleArticalService extends Service {
     };
     const result = await this.app.mysql.update('essay', essay); 
     const updateSuccess = result.affectedRows === 1;
+    /*
+    当更新分类时，重置其对应分类的缓存
+    */
+    HandleArticalService.resources[`getArticalsByClassifyId${classify_id}`] = undefined;
     return updateSuccess;
   }
 
