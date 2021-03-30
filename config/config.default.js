@@ -61,6 +61,16 @@ module.exports = appInfo => {
       enable: false
     }
   };
+  /*
+  配置egg项目所占端口号和地址
+  */
+  config.cluster = {
+    listen: {
+      path: '',
+      port: 7002,
+      hostname: '192.168.3.28', //localhost
+    }
+  };
 
   // add your user config here
   const userConfig = {

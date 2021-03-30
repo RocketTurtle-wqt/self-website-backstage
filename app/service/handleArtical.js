@@ -29,7 +29,7 @@ class HandleArticalService extends Service {
     /*
     当按分类存取文章时，重置其对应分类的缓存
     */
-    this.resetResources(`getArticalsByClassifyId${classify_id}`) = undefined;
+    this.resetResources(`getArticalsByClassifyId${classify_id}`);
     return result;
   }
 
@@ -39,7 +39,7 @@ class HandleArticalService extends Service {
      */
     const essay = await this.app.mysql.get("essay", { id });
     await this.app.mysql.delete('essay', { id });
-    this.resetResources(`getArticalsByClassifyId${essay.classify_id}`) = undefined;
+    this.resetResources(`getArticalsByClassifyId${essay.classify_id}`);
   }
   
   async getArtical(id) {
