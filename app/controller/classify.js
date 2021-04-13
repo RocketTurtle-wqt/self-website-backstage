@@ -33,10 +33,16 @@ class ClassifyController extends Controller {
   async deleteClassify() {
     const { ctx } = this;
     const classify_id = ctx.request.body.classify_id;
-    console.log('classify_id', classify_id);
     await ctx.service.classify.deleteClassify(classify_id);
     ctx.status = 200;
     ctx.body = '分类删除成功';
+  }
+
+  async getClassifiesAndArticals() {
+    const { ctx } = this;
+    const classifiesAndArticals = await ctx.service.classify.getClassifiesAndArticals();
+    ctx.status = 200;
+    ctx.body = classifiesAndArticals;
   }
 }
 

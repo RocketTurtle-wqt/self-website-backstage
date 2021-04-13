@@ -36,6 +36,7 @@ module.exports = app => {
     分类 
   */
   router.get('/classify/getClassifies', controller.classify.getClassifies);
+  router.get('/classify/getClassifiesAndArticals', controller.classify.getClassifiesAndArticals);
   router.post('/classify/publishClassify', controller.classify.publishClassify);
   router.post('/classify/deleteClassify', controller.classify.deleteClassify);
   /*

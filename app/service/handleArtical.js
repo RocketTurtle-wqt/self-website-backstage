@@ -60,6 +60,11 @@ class HandleArticalService extends Service {
     return essays;
   }
 
+  async getArticalsTitleAndIdByClassifyId(id) {
+    const articalsTitle = await this.app.mysql.query(`select id,title from essay where classify_id=${id}`);
+    return articalsTitle;
+  }
+
   async updateArtical(obj) {
     const id = obj.fields.id;
     const markdown = obj.fields.markdown;
@@ -85,9 +90,10 @@ class HandleArticalService extends Service {
   }
 
   async getArticalAboutMe() {
-    const essay = await this.app.mysql.get("essay", { title:'关于我' });
+    const essay = await this.app.mysql.get("essay", { title: '我是谁' });
     return essay;
   }
+
 
   resetResources(cacheStr) {
     HandleArticalService.resources[cacheStr] = undefined;
