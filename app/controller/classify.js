@@ -44,6 +44,13 @@ class ClassifyController extends Controller {
     ctx.status = 200;
     ctx.body = classifiesAndArticals;
   }
+
+  async getClassifyNameById() {
+    const { ctx } = this;
+    const id = ctx.query.id;
+    ctx.status = 200;
+    ctx.body = await ctx.service.classify.getClassifyNameById(id);
+  }
 }
 
 module.exports = ClassifyController;

@@ -56,12 +56,16 @@ class GetClassifyService extends Service {
   async getClassifiesAndArticals() {
     const { ctx } = this;
     let classifies = await this.getClassifies();
-    console.log('---', classifies);
     for (let i = 0; i < classifies.length; i++){
       const rel = await ctx.service.handleArtical.getArticalsTitleAndIdByClassifyId(classifies[i].id);
       classifies[i].articals = rel;
     }
     return classifies;
+  }
+
+  async getClassifyNameById(id) {
+    const classifyName = await this.app.mysql.query(`select name from classify where id=${id}`);
+    return classifyName[0].name;
   }
 }
 
