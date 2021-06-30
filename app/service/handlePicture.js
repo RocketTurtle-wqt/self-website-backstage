@@ -11,9 +11,10 @@ class HandlePictureService extends Service {
     const time = dateFormat(new Date(), "yyyymmddHHMMss");
     const extName = path.extname(image.name);    
     const newName = `${time}_${extName}`;
-    const newPath = `/Users/wangqintao/Desktop/self-website-backstage/app/public/images/${newName}`;
+    // const newPath = `/Users/wangqintao/Desktop/self-website-backstage/app/public/images/${newName}`;
+    const newPath = `/Users/wangqintao/VscodeProjects/self-website-backstage/app/public/images/${newName}`;
     fs.renameSync(image.path, newPath); 
-    return `/images/${newName}`;
+    return `http://localhost:7002/images/${newName}`;
   }
 }
 

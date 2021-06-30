@@ -47,6 +47,7 @@ class ArticalController extends Controller {
         resolve({ fields, files });
       });
     }).then(obj => {
+      console.log(obj.fields);
       const rel = ctx.service.handleArtical.updateArtical(obj);
       if (rel) {
         ctx.status = 200;

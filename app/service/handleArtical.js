@@ -80,6 +80,7 @@ class HandleArticalService extends Service {
       title,
       classify_id
     };
+    console.log(essay);
     const result = await this.app.mysql.update('essay', essay); 
     const updateSuccess = result.affectedRows === 1;
     /*
