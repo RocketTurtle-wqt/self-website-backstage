@@ -23,3 +23,9 @@ npm i
 
 - 创建数据库
 - sql文件在sql目录下，直接跑一下即可
+
+5. 启动项目
+
+```shell
+npm run dev
+```
